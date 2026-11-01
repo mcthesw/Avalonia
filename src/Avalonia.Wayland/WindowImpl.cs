@@ -247,7 +247,12 @@ internal partial class WindowImpl : WindowBaseImpl, IWindowImpl, IWaylandOptions
         _surfaceProxy?.SetParent(parentProxy);
     }
 
-    public void SetEnabled(bool enable) => IsEnabled = enable;
+    public void SetEnabled(bool enable)
+    {
+        IsEnabled = enable;
+        if (!enable)
+            CurrentSink?.StopKeyRepeat();
+    }
 
     public Action? GotInputWhenDisabled { get; set; }
 
